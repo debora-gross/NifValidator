@@ -21,6 +21,14 @@ pipeline {
             }
         }
 
+        stage('Build') {
+            steps {
+                sh """
+                docker build -t dockerdebora25/nifvalidator .
+                """
+            }
+        }
+
     }
 }
 
