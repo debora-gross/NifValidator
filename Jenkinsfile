@@ -39,7 +39,7 @@ pipeline {
             post {
                 always {
                     archiveArtifacts artifacts: 'result.xml',
-                    fingerprint: true, junit: 'result.xml'
+                    fingerprint: true junit: 'result.xml'
                 }
             }
         }
