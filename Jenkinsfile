@@ -21,11 +21,17 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Deliver') {
             steps {
-                sh """
-                docker build -t dockerdebora25/nifvalidator .
-                """
+                withCredentials([usernamePassword(
+                    credentialsId:'docker-debora', 
+                    passwordVariable:'passwd', 
+                    usernameVariable:'username')])
+                    sh """
+                    docker build -t dockerdebora25/nifvalidator .
+                    docker login -u ${username} -p ${passwd}
+                    docker push ${username}/nifvalidator
+                    """
             }
         }
     }
