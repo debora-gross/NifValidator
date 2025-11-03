@@ -28,6 +28,7 @@ pipeline {
                     passwordVariable:'passwd', 
                     usernameVariable:'username')]) {
                         sh """
+                        printenv
                         docker build -t dockerdebora25/nifvalidator .
                         docker login -u ${username} -p ${passwd}
                         docker push ${username}/nifvalidator
