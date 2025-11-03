@@ -47,6 +47,7 @@ pipeline {
                         sh """
                         ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker rm -f nifvalidator || true
                         ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker run -d --name ${JOB_BASE_NAME} -p 8080:9046 ${username}/nifvalidator
+                        ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker ps
                         """
                     }
                 }
