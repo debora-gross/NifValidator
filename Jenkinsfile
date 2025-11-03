@@ -27,7 +27,6 @@ pipeline {
                     credentialsId:'docker-debora', 
                     passwordVariable:'passwd', 
                     usernameVariable:'username')]) {
-                        printenv
                         sh """
                         docker build -t dockerdebora25/nifvalidator .
                         docker login -u ${username} -p ${passwd}
