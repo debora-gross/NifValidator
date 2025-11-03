@@ -33,7 +33,7 @@ pipeline {
             }
 
             steps {
-                sh 'pytest --junitxml result.xml test/'
+                sh 'python3 -m pytest --junitxml result.xml test/'
             }
 
             post {
