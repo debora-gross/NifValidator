@@ -36,5 +36,13 @@ pipeline {
                     }
             }
         }
+
+        stage('Deploy') {
+            steps {
+                sh """
+                ssh redhat@172.31.45.135 docker --version
+                """
+            }
+        }
     }
 }
