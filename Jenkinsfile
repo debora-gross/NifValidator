@@ -45,7 +45,7 @@ pipeline {
                     usernameVariable:'username')]) {
                     sshagent(credentials: ['cluster-credentials']) {
                         sh """
-                        ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker rm -f nifvalidator || true
+                        ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker rm -f ${JOB_BASE_NAME} || true
                         ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker run -d --name ${JOB_BASE_NAME} -p 8080:9046 --pull always ${username}/nifvalidator
                         ssh -o StrictHostKeyChecking=no redhat@172.31.45.135 docker ps
                         """
