@@ -76,16 +76,44 @@ pipeline {
         }
 
         stage('Cyclomatic complexity analysis') {
-                agent {
-                    docker {
-                        image 'python:3.11-slim'
-                        reuseNode true
-                    }
-                }
-                steps {
-                    sh 'python3 -m radon cc . -a -s --exclude site-packages'
+            agent {
+                docker {
+                    image 'python:3.11-slim'
+                    reuseNode true
                 }
             }
+            steps {
+                sh 'python3 -m radon cc . -a -s --exclude site-packages'
+            }
+        }
+        
+        stage('Quality Analysis') {
+            parallel {
+                stage('Integration tests') {
+                    agent any
+                    steps {
+                        echo "TODO Integration tests"
+                    }
+                }
+                stage('User Interface tests') {
+                    agent any
+                    steps {
+                        echo "TODO UI Tests"
+                    }
+                }
+                stage('PEP8 Verification') {
+                    agent {
+                        docker {
+                            image 'python:3.11-slim'
+                            reuseNode true
+                        }
+                    }
+                    steps {
+                        sh 'python3 -m flake8 . --exclude site-packages --exit-zero'
+                    }
+                }
+            }
+        }
 
         stage('Deliver') {
             steps {
